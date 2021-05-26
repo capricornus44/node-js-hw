@@ -1,5 +1,5 @@
 # node-js-hw
-https://ibb.co/wWQsyP9 <br/>
-https://ibb.co/BPw0fBH <br/>
-https://ibb.co/yhmzGtX <br/>
-https://ibb.co/BsMRrsM <br/>
+https://ibb.co/wWQsyP9 (--action add)<br/>
+https://ibb.co/BPw0fBH (--action get)<br/>
+https://ibb.co/yhmzGtX (--action list)<br/>
+https://ibb.co/BsMRrsM (--action remove)<br/>
