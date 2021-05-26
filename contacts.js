@@ -30,7 +30,7 @@ async function removeContact(contactId) {
 }
 
 async function addContact(name, email, phone) {
-  const id = nanoid(4)
+  const id = nanoid(2)
 
   try {
     const list = await listContacts()

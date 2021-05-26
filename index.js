@@ -13,7 +13,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break
 
     case "add":
-      await contacts.addContact({ name, email, phone })
+      await contacts.addContact(name, email, phone)
       console.table(await contacts.listContacts())
       break
 
