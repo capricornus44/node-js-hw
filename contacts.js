@@ -1,9 +1,9 @@
 const fs = require("fs").promises
+
 const path = require("path")
 const { nanoid } = require("nanoid")
 
-const contactsPath = path.basename("./db/contacts.json")
-// const contactsPath = path.join(__dirname, "./db/contacts.json")
+const contactsPath = path.join(__dirname, "./db/contacts.json")
 
 // ** Function to work with contacts collection
 async function listContacts() {
