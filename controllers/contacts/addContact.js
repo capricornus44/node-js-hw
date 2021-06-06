@@ -11,7 +11,9 @@ const addContact = (req, res, next) => {
       message: "Missing required name field",
     })
   }
+
   newContact.id = nanoid(2)
+
   try {
     contacts.push(newContact)
     res.json({

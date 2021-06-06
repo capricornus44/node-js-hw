@@ -10,7 +10,7 @@ router.get("/:contactId", contacts.getContactById)
 
 router.post("/", contacts.addContact)
 
-// router.put("/:contactId", contacts.updateContact)
+router.put("/:contactId", contacts.updateContact)
 
 router.delete("/:contactId", contacts.removeContact)
 
