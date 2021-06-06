@@ -8,7 +8,7 @@ router.get("/", contacts.getListContacts)
 
 router.get("/:contactId", contacts.getContactById)
 
-// router.post("/", contacts.addContact)
+router.post("/", contacts.addContact)
 
 // router.put("/:contactId", contacts.updateContact)
 
