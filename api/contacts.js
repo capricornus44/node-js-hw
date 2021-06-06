@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/", contacts.getListContacts)
 
-// router.get("/:contactId", contacts.getContactById)
+router.get("/:contactId", contacts.getContactById)
 
 // router.post("/", contacts.addContact)
 
