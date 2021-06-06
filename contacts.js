@@ -11,33 +11,39 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
-  try {
-    const list = await listContacts()
-    return list.find((el) => el.id === contactId)
-  } catch (error) {
-    console.log(error)
-  }
+  const list = await listContacts()
+
+  return list.find((el) => el.id === contactId)
 }
 
 async function removeContact(contactId) {
-  try {
-    const list = await listContacts()
-    const res = list.filter((el) => el.id !== contactId)
-    await fs.writeFile(contactsPath, JSON.stringify(res))
-  } catch (error) {
-    console.log(error)
-  }
+  const list = await listContacts()
+  const res = list.filter((el) => el.id !== contactId)
+  await fs.writeFile(contactsPath, JSON.stringify(res))
 }
 
 async function addContact(name, email, phone) {
   const id = nanoid(2)
+  const newContact = { id, name, email, phone }
+  const list = await listContacts()
 
-  try {
-    const list = await listContacts()
-    await fs.writeFile(contactsPath, JSON.stringify([...list, { id, name, email, phone }]))
-  } catch (error) {
-    console.log(error)
-  }
+  await fs.writeFile(contactsPath, JSON.stringify([...list, newContact]))
+
+  return newContact
+}
+
+async function updateContact(contactId, body) {
+  const list = await listContacts()
+  const contactIndex = list.findIndex((user) => String(user.id) === contactId)
+
+  if (contactIndex === -1) return null
+
+  list[contactIndex] = { ...list[contactIndex], ...body }
+  console.log(list[contactIndex])
+
+  await fs.writeFile(contactsPath, JSON.stringify([...list]))
+
+  return list[contactIndex]
 }
 
 module.exports = {
@@ -45,4 +51,5 @@ module.exports = {
   getContactById,
   removeContact,
   addContact,
+  updateContact,
 }
