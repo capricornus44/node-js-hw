@@ -1,9 +1,9 @@
 const { contactsRequestFunctions: db } = require("../../helpers")
 
-const getContactsList = async (req, res, next) => {
+const getContacts = async (req, res, next) => {
   const contacts = await db.listContacts()
   try {
-    res.json({
+    res.status(200).json({
       status: "success",
       code: 200,
       data: { result: contacts },
@@ -13,4 +13,4 @@ const getContactsList = async (req, res, next) => {
   }
 }
 
-module.exports = getContactsList
+module.exports = getContacts

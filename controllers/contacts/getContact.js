@@ -12,7 +12,7 @@ const getContact = async (req, res, next) => {
       })
     }
 
-    res.json({
+    res.status(200).json({
       status: "success",
       code: 200,
       data: { result: contact },
