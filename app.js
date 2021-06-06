@@ -19,7 +19,8 @@ app.use((_, res) => {
 })
 
 app.use((error, _, res, __) => {
-  const { code = 500, message = "Server error" } = error
+  const code = error.code || 500
+  const message = error.message || "Server error"
   res.status(code).json({ message })
 })
 
