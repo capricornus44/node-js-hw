@@ -5,7 +5,7 @@ const { nanoid } = require("nanoid")
 
 const contactsPath = path.join(__dirname, "./db/contacts.json")
 
-// ** Function to work with contacts collection
+// ** Functions to work with contacts collection
 async function listContacts() {
   return JSON.parse(await fs.readFile(contactsPath, "utf-8"))
 }
