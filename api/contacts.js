@@ -1,6 +1,6 @@
 const express = require("express")
 
-const { getContactsList, getContact, addContact, removeContact, updateContact } = require("../controllers/contacts")
+const { getContactsList, getContact, addNewContact, removeContact, updateContact } = require("../controllers/contacts")
 
 const router = express.Router()
 
@@ -8,7 +8,7 @@ router.get("/", getContactsList)
 
 router.get("/:contactId", getContact)
 
-// router.post("/", contacts.addContact)
+router.post("/", addNewContact)
 
 // router.put("/:contactId", contacts.updateContact)
 
