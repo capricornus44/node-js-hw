@@ -1,21 +1,22 @@
-const { contactsRequestFunctions: db } = require("../../helpers")
+const { contact: service } = require("../../services")
 
 const getContact = async (req, res, next) => {
-  const contact = await db.getContactById(req.params.contactId)
-
+  const { contactId } = req.params
   try {
-    if (!contact) {
+    const result = await service.getContact(contactId)
+    if (!result) {
       return res.status(404).json({
         status: "error",
-        code: "404",
+        code: 404,
         message: "Contact not found",
       })
     }
-
-    res.status(200).json({
+    res.json({
       status: "success",
       code: 200,
-      data: { result: contact },
+      data: {
+        result,
+      },
     })
   } catch (error) {
     next(error)

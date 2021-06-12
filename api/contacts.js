@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get("/", ctrl.getContacts)
 
-// router.get("/:contactId", ctrl.getContact)
+router.get("/:contactId", ctrl.getContact)
 
 // router.post("/", validation.createContact, ctrl.addContact)
 
