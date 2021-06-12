@@ -11,8 +11,8 @@ router.get("/:contactId", ctrl.getContact)
 
 router.post("/", ctrl.addContact)
 
-// router.delete("/:contactId", ctrl.removeContact)
+router.put("/:contactId", ctrl.updateContact)
 
-// router.put("/:contactId", validation.changeContact, ctrl.updateContact)
+router.delete("/:contactId", ctrl.removeContact)
 
 module.exports = router

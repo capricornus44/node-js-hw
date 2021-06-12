@@ -33,6 +33,7 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => app.listen(PORT || 3000, () => console.log("Database connection successful")))
   .catch((error) => {
