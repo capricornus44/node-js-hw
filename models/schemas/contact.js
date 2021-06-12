@@ -3,18 +3,18 @@ const { Schema } = require("mongoose")
 const contactSchema = Schema({
   name: {
     type: String,
-    required: [true, "Set name for contact"],
+    required: [true, "Missing required name field"],
     minLength: 2,
     maxLength: 50,
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Missing required email field"],
     unique: true,
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, "Missing required phone field"],
     unique: true,
   },
   favorite: {
