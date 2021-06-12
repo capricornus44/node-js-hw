@@ -1,13 +1,7 @@
 # Contacts DB
-
----
-
 This project was written for educational purposes by using [Node.js](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com)
 
 ## Available Scripts
-
----
-
 In the project directory, you can run:
 
 ```
