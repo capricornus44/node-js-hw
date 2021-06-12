@@ -23,4 +23,4 @@ const contactSchema = Schema({
   },
 })
 
-module.exports = authorSchema
+module.exports = contactSchema
