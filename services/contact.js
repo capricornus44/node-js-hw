@@ -16,6 +16,10 @@ const updateContact = (id, body) => {
   return Contact.findByIdAndUpdate(id, body)
 }
 
+const updateStatusContact = (id, favorite) => {
+  return Contact.findByIdAndUpdate(id, { favorite })
+}
+
 const removeContact = (id) => {
   return Contact.findByIdAndDelete(id)
 }
@@ -25,6 +29,7 @@ const service = {
   getContact,
   addContact,
   updateContact,
+  updateStatusContact,
   removeContact,
 }
 
