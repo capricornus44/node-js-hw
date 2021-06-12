@@ -37,7 +37,7 @@ mongoose
   })
   .then(() => app.listen(PORT || 3000, () => console.log("Database connection successful")))
   .catch((error) => {
-    console.log(`Connection error: ${error.message}`)
+    console.log(`Error in Database connection: ${error.message}`)
     process.exit(1)
   })
 
