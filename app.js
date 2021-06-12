@@ -1,16 +1,16 @@
+const mongoose = require("mongoose")
 const express = require("express")
 const cors = require("cors")
-const morgan = require("morgan")
+require("dotenv").config()
 
-const api = require("./api")
+const routes = require("./api")
 
 const app = express()
 
-app.use(morgan("combined"))
 app.use(cors())
 app.use(express.json())
 
-app.use("/api/v1/contacts", api.contacts)
+app.use("/api/v1/contacts", routes.contacts)
 
 app.use((_, res) => {
   res.status(404).json({
@@ -26,6 +26,23 @@ app.use((error, _, res, __) => {
   res.status(code).json({ message })
 })
 
-app.listen(3000, () => {
-  console.log("Server running on port: 3000")
-})
+const { DB_HOST, PORT } = process.env
+
+mongoose
+  .connect(DB_HOST, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => app.listen(PORT || 3000, () => console.log("Database connection successful")))
+  .catch((error) => {
+    console.log(`Connection error: ${error.message}`)
+    process.exit(1)
+  })
+
+process.on("SIGINT", () =>
+  mongoose.connection.close(() => {
+    console.log("Database disconnected, server terminated.")
+    process.exit(1)
+  })
+)
