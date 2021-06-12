@@ -9,7 +9,7 @@ router.get("/", ctrl.getContacts)
 
 router.get("/:contactId", ctrl.getContact)
 
-// router.post("/", validation.createContact, ctrl.addContact)
+router.post("/", ctrl.addContact)
 
 // router.delete("/:contactId", ctrl.removeContact)
 
