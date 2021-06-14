@@ -17,7 +17,7 @@ const updateContact = (id, body) => {
 }
 
 const updateStatusContact = (id, favorite) => {
-  return Contact.findByIdAndUpdate(id, { favorite })
+  return Contact.findByIdAndUpdate(id, { favorite }, { new: true })
 }
 
 const removeContact = (id) => {
