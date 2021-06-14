@@ -1,6 +1,5 @@
 const express = require("express")
 
-// const { validation } = require("../helpers")
 const { contacts: ctrl } = require("../controllers/")
 
 const router = express.Router()
