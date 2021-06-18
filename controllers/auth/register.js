@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
     res.status(201).json({
       status: "success",
       code: 201,
-      message: "Add sucess",
+      message: "Added successfully",
       data: {
         token,
       },

@@ -1,7 +1,11 @@
 const User = require("../models")
 
+// Does user with this email already exist? => during register operation
+// Does inputted email match with email in db? => during login operation
+// User.findOne({email: filter})
+
 const getOne = (filter) => {
-  return User.findOne(filter) // User.findOne({email: filter}) => is user with this email already exist?
+  return User.findOne(filter)
 }
 
 const getById = (id) => {
