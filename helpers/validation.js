@@ -1,40 +1,44 @@
 const Joi = require("joi")
+const HttpCode = require("./constants")
 
 const createContactSchema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30).required(),
 
-  email: Joi.string().email({
-    minDomainSegments: 2,
-    tlds: { allow: ["com", "net"] },
-  }),
-
-  phone: Joi.string()
-    .length(9)
-    .pattern(/^[0-9]+$/)
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "ua", "ru", "uk", "net", "org"] },
+    })
     .required(),
+
+  phone: Joi.string().min(7).max(15).required(),
+
+  owner: Joi.object().optional(),
 })
 
 const updateContactSchema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).optional(),
+  name: Joi.string().min(3).max(30).optional(),
 
-  email: Joi.string().email({
-    minDomainSegments: 2,
-    tlds: { allow: ["com", "net"] },
-  }),
-
-  phone: Joi.string()
-    .length(9)
-    .pattern(/^[0-9]+$/)
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "ua", "ru", "uk", "net", "org"] },
+    })
     .optional(),
-}).min(1)
 
-const validate = (schema, obj, next) => {
-  const { error } = schema.validate(obj)
+  phone: Joi.string().min(7).max(15).optional(),
+
+  owner: Joi.object().optional(),
+})
+
+const validate = (schema, body, next) => {
+  const { error } = schema.validate(body)
   if (error) {
     const [{ message }] = error.details
     return next({
-      status: 400,
+      status: HttpCode.BAD_REQUEST,
       message: `Field: ${message.replace(/"/g, "")}`,
+      data: "Bad Request",
     })
   }
   next()

@@ -11,6 +11,10 @@ const userSchema = Schema({
     type: String,
     required: [true, "Email is required"],
     unique: true,
+    validate(value) {
+      const regExp = /\S+@\S+\.\S+/
+      return regExp.test(String(value).toLocaleLowerCase())
+    },
   },
   subscription: {
     type: String,
@@ -27,7 +31,7 @@ userSchema.methods.setPassword = function (password) {
   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
 
-userSchema.methods.validPassword = (password) => {
+userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
 

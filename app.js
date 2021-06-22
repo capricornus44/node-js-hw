@@ -1,28 +1,42 @@
 const mongoose = require("mongoose")
 const express = require("express")
 const cors = require("cors")
+const helmet = require("helmet")
+const rateLimit = require("express-rate-limit")
 require("dotenv").config()
 
+const { HttpCode } = require("./helpers")
 const routes = require("./api")
 
 const app = express()
 
+app.use(helmet())
 app.use(cors())
-app.use(express.json())
+app.use(express.json({ limit: 10000 }))
 
-app.use("/api/v1/auth", routes.auth)
+const apiLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+  handler: (req, res, next) => {
+    return res.status(HttpCode.BAD_REQEST).json({ message: "Too many requests, please try again later." })
+  },
+})
+
+app.use("/api/", apiLimiter)
+
+app.use("/api/v1/users", routes.users)
 app.use("/api/v1/contacts", routes.contacts)
 
 app.use((_, res) => {
-  res.status(404).json({
+  res.status(HttpCode.NOT_FOUND).json({
     status: "error",
-    code: 404,
+    code: HttpCode.NOT_FOUND,
     message: "Resource not found",
   })
 })
 
 app.use((error, _, res, __) => {
-  const code = error.code || 500
+  const code = error.code || HttpCode.INTERNAL_SERVER_ERROR
   const message = error.message || "Server error"
   res.status(code).json({ message })
 })

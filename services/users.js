@@ -1,25 +1,32 @@
-const User = require("../models")
+const { User } = require("../models")
 
-// Does user with this email already exist? => during register operation
-// Does inputted email match with email in db? => during login operation
-// User.findOne({email: filter})
-
-const getOne = (filter) => {
-  return User.findOne(filter)
+const findByEmail = async (email) => {
+  return await User.findOne({ email })
 }
 
-const getById = (id) => {
-  return User.findById(id)
+const findUserById = async (userId) => {
+  return await User.findById(userId)
 }
 
-const add = ({ email, password }) => {
-  const newUser = new User({ email })
-  newUser.setPassword(password)
-  return newUser.save()
+const createUser = async ({ email, password, subscription }) => {
+  const user = new User({ email, subscription })
+  user.setPassword(password)
+  return await user.save()
+}
+
+const updateToken = async (userId, token) => {
+  return await User.findByIdAndUpdate(userId, { token })
+}
+
+const updateUserSubscription = async (userId, subscription) => {
+  const updateSubscription = await User.findByIdAndUpdate({ _id: userId }, { subscription }, { new: true })
+  return updateSubscription
 }
 
 module.exports = {
-  getOne,
-  getById,
-  add,
+  findByEmail,
+  findUserById,
+  createUser,
+  updateToken,
+  updateUserSubscription,
 }
