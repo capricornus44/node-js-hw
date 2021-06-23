@@ -1,23 +1,27 @@
-const { contact: service } = require("../../services")
+const { contacts: service } = require("../../services")
+const { HttpCode } = require("../../helpers")
 
 const removeContact = async (req, res, next) => {
   const { contactId } = req.params
-  try {
-    const result = await service.removeContact(contactId)
+  const userId = req.user.id
 
-    if (!result) {
-      return res.status(404).json({
+  try {
+    const contact = await service.removeContact(userId, contactId)
+
+    if (!contact) {
+      return res.status(HttpCode.NOT_FOUND).json({
         status: "error",
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         message: "Contact not found",
       })
     }
 
-    res.status(200).json({
+    res.status(HttpCode.OK).json({
       status: "success",
-      code: 200,
+      code: HttpCode.OK,
+      message: `Contact ${contact.name} deleted`,
       data: {
-        result,
+        contact,
       },
     })
   } catch (error) {

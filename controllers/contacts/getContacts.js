@@ -1,20 +1,22 @@
-const { contact: service } = require("../../services")
+const { contacts: service } = require("../../services")
+const { HttpCode } = require("../../helpers")
 
 const getContacts = async (req, res, next) => {
   const { query } = req
+  const userId = req.user.id
 
   try {
-    const result = await service.getContacts(query)
+    const contacts = await service.getContacts(userId, query)
 
-    if (!result) {
-      res.status(404).json("There are no contacts published yet!")
+    if (!contacts) {
+      res.status(HttpCode.NOT_FOUND).json("There are no contacts published yet!")
     }
 
     res.json({
       status: "success",
-      code: 200,
+      code: HttpCode.OK,
       data: {
-        result,
+        contacts,
       },
     })
   } catch (error) {

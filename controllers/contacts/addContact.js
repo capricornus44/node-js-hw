@@ -1,14 +1,17 @@
-const { contact: service } = require("../../services")
+const { contacts: service } = require("../../services")
+const { HttpCode } = require("../../helpers")
 
 const addContact = async (req, res, next) => {
-  try {
-    const result = await service.addContact(req.body)
+  const userId = req.user.id
 
-    res.status(201).json({
+  try {
+    const contact = await service.addContact({ owner: userId, ...req.body })
+
+    res.status(HttpCode.CREATED).json({
       status: "success",
-      code: 201,
+      code: HttpCode.CREATED,
       data: {
-        result,
+        contact,
       },
     })
   } catch (error) {

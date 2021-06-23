@@ -1,23 +1,26 @@
-const { contact: service } = require("../../services")
+const { contacts: service } = require("../../services")
+const { HttpCode } = require("../../helpers")
 
 const getContact = async (req, res, next) => {
   const { contactId } = req.params
-  try {
-    const result = await service.getContact(contactId)
+  const userId = req.user.id
 
-    if (!result) {
-      return res.status(404).json({
+  try {
+    const contact = await service.getContact(userId, contactId)
+
+    if (!contact) {
+      return res.status(HttpCode.NOT_FOUND).json({
         status: "error",
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         message: "Contact not found",
       })
     }
 
     res.json({
       status: "success",
-      code: 200,
+      code: HttpCode.OK,
       data: {
-        result,
+        contact,
       },
     })
   } catch (error) {

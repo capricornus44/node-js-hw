@@ -1,17 +1,19 @@
-const { contact: service } = require("../../services")
+const { contacts: service } = require("../../services")
+const { HttpCode } = require("../../helpers")
 
 const updateStatusContact = async (req, res, next) => {
   const { favorite } = req.body
   const { contactId } = req.params
+  const userId = req.user.id
 
   try {
-    const result = await service.updateStatusContact(contactId, favorite)
+    const contact = await service.updateStatusContact(userId, contactId, favorite)
 
-    res.status(200).json({
+    res.status(HttpCode.OK).json({
       status: "success",
-      code: 200,
+      code: HttpCode.OK,
       data: {
-        result,
+        contact,
       },
     })
   } catch (error) {
