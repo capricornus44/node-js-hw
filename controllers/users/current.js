@@ -1,8 +1,7 @@
-const { users: service } = require("../../services")
 const { HttpCode } = require("../../helpers")
 
 const current = async (req, res, next) => {
-  const { id, email, subscription } = req.user
+  const { email, subscription } = req.user
 
   return res.status(HttpCode.OK).json({
     status: "success",

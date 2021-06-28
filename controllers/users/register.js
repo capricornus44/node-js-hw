@@ -5,7 +5,7 @@ const { users: service } = require("../../services")
 const { HttpCode } = require("../../helpers")
 
 const register = async (req, res, next) => {
-  const { email, password, subscription } = req.body
+  const { email, password, subscription, avatarURL } = req.body
 
   try {
     const user = await service.findByEmail(email)
@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
       })
     }
 
-    const newUser = await service.createUser({ email, password, subscription })
+    const newUser = await service.createUser({ email, password, subscription, avatarURL })
     return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
@@ -26,6 +26,7 @@ const register = async (req, res, next) => {
         id: newUser.id,
         email: newUser.email,
         subscription: newUser.subscription,
+        avatarURL: newUser.avatarURL,
       },
     })
   } catch (error) {
