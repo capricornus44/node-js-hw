@@ -3,6 +3,7 @@ const guard = require("./guard")
 const HttpCode = require("./constants")
 const createAccountLimiter = require("./accountLimiter")
 const upload = require("./multerUpload")
+const sendEmail = require("./email")
 
 module.exports = {
   validation,
@@ -10,4 +11,5 @@ module.exports = {
   createAccountLimiter,
   HttpCode,
   upload,
+  sendEmail,
 }
