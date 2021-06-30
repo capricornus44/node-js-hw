@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
   try {
     const user = await service.findByEmail(email)
 
-    if (!user || !user.validPassword(password)) {
+    if (!user || !user.validPassword(password) || !user.verification) {
       return res.status(HttpCode.BAD_REQEST).json({
         status: "error",
         code: HttpCode.BAD_REQEST,

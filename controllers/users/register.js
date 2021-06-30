@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
+const crypto = require("crypto")
+
 const { users: service } = require("../../services")
-const { HttpCode } = require("../../helpers")
+const { HttpCode, sendEmail } = require("../../helpers")
 
 const register = async (req, res, next) => {
   const { email, password, subscription, avatarURL } = req.body
@@ -18,7 +20,19 @@ const register = async (req, res, next) => {
       })
     }
 
-    const newUser = await service.createUser({ email, password, subscription, avatarURL })
+    const verificationToken = await crypto.randomBytes(16).toString("hex")
+
+    const newUser = await service.createUser({
+      email,
+      password,
+      subscription,
+      avatarURL,
+      verification: false,
+      verificationToken,
+    })
+
+    sendEmail(verificationToken, email)
+
     return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
