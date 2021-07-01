@@ -17,8 +17,8 @@ app.use(express.json({ limit: 10000 }))
 app.use(express.static(path.join(process.cwd(), "public")))
 
 const apiLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 100,
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 100, // limit each IP to 100 requests per windowMs
   handler: (req, res, next) => {
     return res.status(HttpCode.BAD_REQEST).json({ message: "Too many requests, please try again later." })
   },
